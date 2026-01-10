@@ -17,12 +17,16 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     @Column(unique = true, nullable = false)
     @NotBlank(message = "Email is required")
     @Email(message = "Please enter a valid email address")
     private String email ;
+
     @Column(nullable = false)
     private String password;
+
+    private String username;
 
     @Enumerated(EnumType.STRING)
     private Role role;
