@@ -5,13 +5,13 @@ A RESTful API built with Spring Boot for managing student records with JWT-based
 
 ## Technologies Used
 
-- Java 11+
-- Spring Boot 2.7.x
+- Java 
+- Spring Boot 
 - Spring Security with JWT
 - Spring Data JPA
 - H2 In-Memory Database
-- Maven/Gradle
-- JUnit 5 for testing
+- Mave
+
 
 ## Prerequisites
 
@@ -128,4 +128,5 @@ spring.h2.console.path=/h2-console
 # JWT Configuration
 jwt.secret=CFlrMMoGpaR8qKtYTLvrHoRRhO583ZZwhrbr4gB7Bds >> must be in env file
 jwt.expiration=36000000
+
 
