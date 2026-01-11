@@ -3,6 +3,7 @@ package com.example.Spectro.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -28,6 +29,10 @@ public class Student {
     private String lastName;
 
     @Column(unique = true, nullable = false)
+    @Pattern(
+            regexp = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@spectro\\.net$",
+            message = "Email must end with @spectro.net"
+    )
     private String email;
 
 
