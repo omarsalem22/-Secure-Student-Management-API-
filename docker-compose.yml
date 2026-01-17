@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: spectro-postgres
+    environment:
+      POSTGRES_DB: spectro
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456789
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - spectro-network
+
+  app:
+    image: spectro-app:latest
+    container_name: spectro-app
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/spectro
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 123456789
+      JWT_SECRET_KEY: CFlrMMoGpaR8qKtYTLvrHoRRhO583ZZwhrbr4gB7Bds=
+      JWT_EXPIRATION_TIME: 36000000
+    ports:
+      - "8080:8080"
+    networks:
+      - spectro-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+
+networks:
+  spectro-network:
+    driver: bridge
